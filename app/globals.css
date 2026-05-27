@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+@theme {
+  /* Nova Brand Colors — Midnight Navy + Gold + Ivory */
+  --color-midnight: #0D1117;
+  --color-navy: #111827;
+  --color-navy-light: #1E2A3B;
+  --color-ivory: #F8F5EF;
+  --color-ivory-dim: #EDE9DF;
+  --color-gold: #C9A84C;
+  --color-gold-light: #DDB96A;
+  --color-gold-pale: #F5E9C8;
+  --color-ember: #8B2635;
+  --color-ember-light: #A8303F;
+  --color-surface: #fafaf8;
+  --color-surface-low: #f4f3ef;
+  --color-surface-container: #eeece6;
+  --color-on-surface: #0D1117;
+  --color-on-surface-variant: #3D4149;
+  --color-outline: #7A7D85;
+  --color-outline-variant: #C8CAD0;
+
+  /* Fonts */
+  --font-display: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-body: var(--font-dm-sans), 'DM Sans', system-ui, sans-serif;
+
+  /* Font sizes */
+  --font-size-display-xl: clamp(2.75rem, 7vw, 5rem);
+  --font-size-headline-lg: clamp(2rem, 4vw, 3.25rem);
+  --font-size-headline-md: clamp(1.5rem, 3vw, 2.25rem);
+  --font-size-headline-sm: 1.5rem;
+  --font-size-body-lg: 1.125rem;
+  --font-size-body-md: 1rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-label-caps: 0.7rem;
+
+  /* Spacing */
+  --spacing-section: 7rem;
+  --spacing-section-sm: 4.5rem;
+
+  /* Max width */
+  --container-site: 1280px;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: #0D1117;
+  color: #F8F5EF;
+  padding: 0.5rem 1rem;
+  z-index: 9999;
+  font-size: 0.875rem;
+}
+.skip-link:focus { top: 1rem; }
+
+html { scroll-behavior: smooth; }
+
+:focus-visible {
+  outline: 2px solid #C9A84C;
+  outline-offset: 3px;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #EDE9DF; }
+::-webkit-scrollbar-thumb { background: #C9A84C; border-radius: 3px; }
+
+::selection { background: #C9A84C; color: #0D1117; }
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(2rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(201,168,76,0.3); }
+  50% { box-shadow: 0 0 40px rgba(201,168,76,0.6); }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }
+
+/* Font utilities */
+.font-display {
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+}
+.font-body {
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* Font size utilities */
+.text-display-xl {
+  font-size: clamp(2.75rem, 7vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.text-headline-lg { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.15; }
+.text-headline-md { font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.25; }
+.text-headline-sm { font-size: 1.5rem; line-height: 1.35; }
+.text-body-lg { font-size: 1.125rem; line-height: 1.75; }
+.text-body-md { font-size: 1rem; line-height: 1.7; }
+.text-body-sm { font-size: 0.875rem; line-height: 1.6; }
+.text-label-caps {
+  font-size: 0.7rem;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  font-weight: 600;
+}
+
+/* Color utilities */
+.bg-midnight { background-color: #0D1117; }
+.bg-navy { background-color: #111827; }
+.bg-navy-light { background-color: #1E2A3B; }
+.bg-ivory { background-color: #F8F5EF; }
+.bg-ivory-dim { background-color: #EDE9DF; }
+.bg-gold { background-color: #C9A84C; }
+.bg-gold-light { background-color: #DDB96A; }
+.bg-ember { background-color: #8B2635; }
+.bg-surface-container { background-color: #eeece6; }
+.bg-surface-low { background-color: #f4f3ef; }
+
+.text-midnight { color: #0D1117; }
+.text-navy { color: #111827; }
+.text-ivory { color: #F8F5EF; }
+.text-ivory-dim { color: #EDE9DF; }
+.text-gold { color: #C9A84C; }
+.text-gold-light { color: #DDB96A; }
+.text-ember { color: #8B2635; }
+.text-on-surface-variant { color: #3D4149; }
+.text-white { color: #ffffff; }
+
+.border-ivory-dim { border-color: #EDE9DF; }
+.border-midnight { border-color: #0D1117; }
+.border-gold { border-color: #C9A84C; }
+.border-navy { border-color: #111827; }
+
+/* Layout utilities */
+.max-w-site { max-width: 1280px; }
+.py-section { padding-top: 7rem; padding-bottom: 7rem; }
+.py-section-sm { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+
+/* Gold shimmer text */
+.text-gold-shimmer {
+  background: linear-gradient(90deg, #C9A84C, #F0D07A, #C9A84C);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Gradients */
+.bg-gradient-navy-r {
+  background: linear-gradient(to right, rgba(13,17,23,0.92), rgba(13,17,23,0.65), transparent);
+}
+.bg-gradient-navy-b {
+  background: linear-gradient(to bottom, transparent, rgba(13,17,23,0.8));
+}
+
+/* Gold divider */
+.divider-gold {
+  width: 3rem;
+  height: 2px;
+  background: linear-gradient(to right, #C9A84C, #DDB96A);
+}

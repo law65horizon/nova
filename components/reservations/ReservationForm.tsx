@@ -60,15 +60,42 @@ const initialForm: FormState = {
   notes: "",
 };
 
+// Replace the current export default function ReservationForm() { ... opener with:
+
+function ReservationFormInner() {
+  const searchParams = useSearchParams();
+  const preselectedItem = searchParams.get("item");
+  const preselectedPrice = searchParams.get("price");
+
+  return (
+    <ReservationFormContent
+      preselectedItem={preselectedItem}
+      preselectedPrice={preselectedPrice}
+    />
+  );
+}
+
 export default function ReservationForm() {
+  return (
+    <Suspense fallback={null}>
+      <ReservationFormInner />
+    </Suspense>
+  );
+}
+
+function ReservationFormContent({
+  preselectedItem,
+  preselectedPrice,
+}: {
+  preselectedItem: string | null;
+  preselectedPrice: string | null;
+}) {
   const [form, setForm] = useState<FormState>(initialForm);
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
   // Inside the component, before the form state:
   const searchParams = useSearchParams();
-  const preselectedItem = searchParams.get("item");
-  const preselectedPrice = searchParams.get("price");
 
   const update = (field: keyof FormState, value: string) =>
     setForm((prev) => ({ ...prev, [field]: value }));

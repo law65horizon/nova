@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     // Sanitise orderItems — ensure _key on each array member (Sanity requires it)
     const orderItems = Array.isArray(body.orderItems)
       ? body.orderItems
-          .filter((i: { name?: string; quantity?: number }) => i.name && i.quantity > 0)
+          .filter((i: { name?: string; quantity?: number }) => i.name && (i.quantity && i.quantity > 0))
           .map((i: { name: string; price: number; quantity: number }, idx: number) => ({
             _key: `item_${idx}_${Date.now()}`,
             name: i.name,

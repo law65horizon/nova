@@ -82,6 +82,31 @@ export const reservationType = defineType({
         ],
       },
     }),
+    // Pre-ordered dishes from the menu
+    defineField({
+      name: "orderItems",
+      title: "Pre-ordered Dishes",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({ name: "name", title: "Dish", type: "string" }),
+            defineField({ name: "price", title: "Price (₦)", type: "number" }),
+            defineField({ name: "quantity", title: "Qty", type: "number" }),
+          ],
+          preview: {
+            select: { title: "name", quantity: "quantity", price: "price" },
+            prepare({ title, quantity, price }) {
+              return {
+                title: `${title} × ${quantity}`,
+                subtitle: `₦ ${((price ?? 0) * (quantity ?? 1)).toLocaleString()}`,
+              };
+            },
+          },
+        },
+      ],
+    }),
     defineField({
       name: "notes",
       title: "Special Requests / Notes",
@@ -112,18 +137,34 @@ export const reservationType = defineType({
   preview: {
     select: {
       title: "guestName",
-      subtitle: "date",
-      media: "status",
+      date: "date",
+      time: "time",
+      status: "status",
+      partySize: "partySize",
     },
-    prepare({ title, subtitle }) {
-      return { title, subtitle: `${subtitle}` };
+    prepare({ title, date, time, status, partySize }) {
+      const statusEmoji: Record<string, string> = {
+        pending: "🕐",
+        confirmed: "✅",
+        cancelled: "❌",
+        completed: "🍽️",
+      };
+      return {
+        title: `${statusEmoji[status] ?? "📋"} ${title}`,
+        subtitle: `${date} at ${time} · ${partySize} guests`,
+      };
     },
   },
   orderings: [
     {
-      title: "Date (newest first)",
-      name: "dateDesc",
-      by: [{ field: "date", direction: "desc" }],
+      title: "Date (soonest first)",
+      name: "dateAsc",
+      by: [{ field: "date", direction: "asc" }],
+    },
+    {
+      title: "Submitted (newest first)",
+      name: "submittedDesc",
+      by: [{ field: "submittedAt", direction: "desc" }],
     },
   ],
 });
